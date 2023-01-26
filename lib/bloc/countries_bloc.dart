@@ -8,20 +8,22 @@ part 'countries_event.dart';
 
 class CountriesBloc extends Bloc<CountriesEvent, CountriesState> {
   CountriesBloc({required CountriesApiClient countriesApiClient})
-      : super(CountriesLoadInProgress()) {
+      : _countriesApiClient = countriesApiClient,
+        super(CountriesLoadInProgress()) {
     on<CountriesFetchStarted>(_onCountriesFetchStarted);
   }
-}
 
-late final CountriesApiClient countriesApiClient;
+  final CountriesApiClient _countriesApiClient;
 
-Future<void> _onCountriesFetchStarted(
-    CountriesFetchStarted event, Emitter<CountriesState> emit) async {
-  emit(CountriesLoadInProgress());
-  try {
-    final country = await countriesApiClient.getCountries();
-    emit(CountriesLoadInSuccess(countriesModel: country));
-  } catch (_) {
-    emit(CountriesLoadInFailure());
+  Future<void> _onCountriesFetchStarted(
+      CountriesFetchStarted event, Emitter<CountriesState> emit) async {
+    emit(CountriesLoadInProgress());
+    try {
+      final country = await _countriesApiClient.getCountries();
+      emit(CountriesLoadInSuccess(countriesModel: country));
+    } catch (error) {
+      print("ERROR: $error");
+      emit(CountriesLoadInFailure());
+    }
   }
 }

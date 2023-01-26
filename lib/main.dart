@@ -6,9 +6,7 @@ import 'package:flutter_graphql/ui/all_countries_page.dart';
 
 void main() {
   runApp(MyApp(
-    countriesApiClient: CountriesApiClient(
-      graphQLClient: CountriesApiClient.create(),
-    ),
+    countriesApiClient: CountriesApiClient.create(),
   ));
 }
 
@@ -26,8 +24,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: BlocProvider(
-          create: (_) => CountriesBloc(countriesApiClient: countriesApiClient),
-          child: const AllCountriesPage()),
+        create: (_) => CountriesBloc(countriesApiClient: countriesApiClient)..add(CountriesFetchStarted()),
+        child: const AllCountriesPage(),
+      ),
     );
   }
 }
