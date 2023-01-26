@@ -29,4 +29,16 @@ class CountriesApiClient {
         .map((dynamic e) => CountryModel.fromJson(e as Map<String, dynamic>))
         .toList();
   }
+
+  Future<List<CountryModel>> getSingleCountry() async {
+    final result = await _graphQLClient.query(
+      QueryOptions(document: gql(queries.getCountries)),
+    );
+    if (result.hasException) throw GetCountriesRequestFailure();
+    final data = result.data?['countries'] as List;
+    print("SUCCESS DATA:${result.data.toString()}");
+    return data
+        .map((dynamic e) => CountryModel.fromJson(e as Map<String, dynamic>))
+        .toList();
+  }
 }

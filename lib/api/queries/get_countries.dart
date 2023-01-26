@@ -10,3 +10,16 @@ const getCountries = '''
     }
 }
 ''';
+//
+//  getCountryById({required String countryId}) = '''
+//   query GetCountries($countryId){
+//     countries(""){
+//         code
+//         name
+//         emoji
+//         native
+//         capital
+//         currency
+//     }
+// }
+// ''';
