@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_graphql/ui/all_countrires_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_graphql/api/api_client.dart';
+import 'package:flutter_graphql/bloc/countries_bloc.dart';
+import 'package:flutter_graphql/ui/all_countries_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp(
+    countriesApiClient: CountriesApiClient(
+      graphQLClient: CountriesApiClient.create(),
+    ),
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.countriesApiClient});
+
+  final CountriesApiClient countriesApiClient;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +25,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const AllCountriesPage(),
+      home: BlocProvider(
+          create: (_) => CountriesBloc(countriesApiClient: countriesApiClient),
+          child: const AllCountriesPage()),
     );
   }
 }

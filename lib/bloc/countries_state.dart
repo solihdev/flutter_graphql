@@ -5,7 +5,7 @@ abstract class CountriesState {}
 class CountriesLoadInProgress extends CountriesState {}
 
 class CountriesLoadInSuccess extends CountriesState {
-  final List<CountriesModel> countriesModel;
+  final List<CountryModel> countriesModel;
 
   CountriesLoadInSuccess({
     required this.countriesModel,

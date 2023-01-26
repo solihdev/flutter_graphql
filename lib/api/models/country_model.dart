@@ -1,5 +1,5 @@
-class CountriesModel {
-  const CountriesModel({
+class CountryModel {
+  const CountryModel({
     required this.name,
     required this.code,
     required this.native,
@@ -15,7 +15,7 @@ class CountriesModel {
   final String emoji;
   final String currency;
 
-  factory CountriesModel.fromJson(Map<String, dynamic> json) => CountriesModel(
+  factory CountryModel.fromJson(Map<String, dynamic> json) => CountryModel(
         name: json['name'] as String? ?? "",
         code: json['code'] as String? ?? "",
         native: json['native'] as String? ?? "",
